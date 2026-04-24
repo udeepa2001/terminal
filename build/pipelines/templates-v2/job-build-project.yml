@@ -71,9 +71,16 @@ parameters:
   - name: enableCaching
     type: boolean
     default: false
+  - name: afterBuildSteps
+    type: stepList
+    default: []
+  - name: outerTemplateContext
+    type: object
+    default: {}
 
 jobs:
 - job: ${{ parameters.jobName }}
+  templateContext: ${{ parameters.outerTemplateContext }}
   ${{ if ne(length(parameters.pool), 0) }}:
     pool: ${{ parameters.pool }}
   strategy:
